@@ -6,7 +6,7 @@ on:
     paths:
       - .github/workflows/qodana.yml
     tags:
-      - 'pr-test-*'
+      - 'test-*'
 
 jobs:
   qodana:

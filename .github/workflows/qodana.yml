@@ -1,0 +1,26 @@
+name: Qodana
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/qodana.yml
+    tags:
+      - 'pr-test-*'
+
+jobs:
+  qodana:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Qodana - Code Inspection
+        uses: JetBrains/qodana-action@v4.2.5
+        with:
+          results-dir: ${{ github.workspace }}/docs
+          save-html-report: true
+      - name: Deploy to Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/report
+          destination_dir: ./docs
